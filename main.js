@@ -25,17 +25,50 @@ function displayAnimalGifs(){
     $("#gif-window").empty();
 
     animals = $(this).attr("id");
-    queryURL = "http://api.giphy.com/v1/gifs/search?q="+animals+"&api_key=YXIrmneXIrga1DDVW61VFBCCkukPVuzC&limit=6";
+    queryURL = "http://api.giphy.com/v1/gifs/search?q="+animals+"&api_key=YXIrmneXIrga1DDVW61VFBCCkukPVuzC";
 
     displayGifs(queryURL);
 }
+
+function RNG(upperBound){
+    var temp = Math.floor(Math.random()*upperBound);
+    return temp;
+}
+
+function randomSelector(array){
+    var tempArray = [];
+    var arraySize = 5;
+
+    for(var j=0;j<arraySize;j++){
+        var random = RNG(array.length);
+        tempArray.push(usefulArray[random]);
+        usefulArray = removeFromArray(usefulArray,random);
+    }
+
+    return tempArray;
+}
+
+function removeFromArray(array,position){
+    var tempArray = [];
+    array[position] = null;
+
+    for(var k=0;k<array.length;k++){
+        if(array!==null){
+            tempArray.push(array[k]);
+        }
+    }
+    return tempArray;
+}
+
+var usefulArray = [];
 
 function displayGifs(gifURL){
     $.ajax({
         url: gifURL,
         method: "GET"
     }).then(function(response){
-        var animalGIFs = response.data;
+        usefulArray = response.data;
+        var animalGIFs = randomSelector(usefulArray);
         console.log(animalGIFs);
 
         for(var i=0;i<animalGIFs.length;i++){
@@ -55,6 +88,29 @@ function displayGifs(gifURL){
         }
     });
 }
+
+$("#reload").on("click",function(){
+    $("#gif-window").empty();
+
+    var animalGIFs = randomSelector(usefulArray);
+    console.log(animalGIFs);
+
+    for(var i=0;i<animalGIFs.length;i++){
+       var currentAnimal = animalGIFs[i];
+        console.log(currentAnimal);
+        var newGIF = $("<img>");
+
+        newGIF.attr("src",currentAnimal.images.downsized_still.url);
+        console.log(currentAnimal.images.downsized_still.url);
+
+        newGIF.addClass("gif");
+        newGIF.attr("data-still",currentAnimal.images.downsized_still.url);
+        newGIF.attr("data-animate",currentAnimal.images.downsized.url);
+        newGIF.attr("data-state", "still");
+
+        $("#gif-window").append(newGIF);
+    }
+});
 
 $(document).on("click",".gif",animatedGIF);
 
