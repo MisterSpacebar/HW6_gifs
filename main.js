@@ -89,29 +89,6 @@ function displayGifs(gifURL){
     });
 }
 
-$("#reload").on("click",function(){
-    $("#gif").remove();
-
-    var animalGIFs = randomSelector(usefulArray);
-    console.log(animalGIFs);
-
-    for(var i=0;i<animalGIFs.length;i++){
-       var currentAnimal = animalGIFs[i];
-        console.log(currentAnimal);
-        var newGIF = $("<img>");
-
-        newGIF.attr("src",currentAnimal.images.downsized_still.url);
-        console.log(currentAnimal.images.downsized_still.url);
-
-        newGIF.addClass("gif");
-        newGIF.attr("data-still",currentAnimal.images.downsized_still.url);
-        newGIF.attr("data-animate",currentAnimal.images.downsized.url);
-        newGIF.attr("data-state", "still");
-
-        $("#gif-window").append(newGIF);
-    }
-});
-
 $(document).on("click",".gif",animatedGIF);
 
 function animatedGIF(){
