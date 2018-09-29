@@ -90,7 +90,7 @@ function displayGifs(gifURL){
 }
 
 $("#reload").on("click",function(){
-    $("#gif-window").empty();
+    $("#gif").remove();
 
     var animalGIFs = randomSelector(usefulArray);
     console.log(animalGIFs);
