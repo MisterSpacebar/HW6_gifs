@@ -11,6 +11,8 @@ $("#add-search").on("click",function(event){
     newbutton.attr("id",newAnimal);
     newbutton.text(newAnimal);
     newbutton.css("margin-right","5px");
+    newbutton.css("background-color","lightskyblue");
+    newbutton.css("color","black");
     $("#buttons-view").prepend(newbutton);
     // --- clear search field
     $("#search-input").val("");
@@ -23,6 +25,10 @@ var queryURL;
 
 function displayAnimalGifs(){
     $("#gif-window").empty();
+    $("button").css("color","black");
+    $("button").css("background-color","lightskyblue");
+    $(this).css("background-color","blue");
+    $(this).css("color","white");
 
     animals = $(this).attr("id");
     queryURL = "http://api.giphy.com/v1/gifs/search?q="+animals+"&api_key=YXIrmneXIrga1DDVW61VFBCCkukPVuzC";
