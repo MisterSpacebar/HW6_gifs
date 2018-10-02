@@ -31,7 +31,7 @@ function displayAnimalGifs(){
     $(this).css("color","white");
 
     animals = $(this).attr("id");
-    queryURL = "http://api.giphy.com/v1/gifs/search?q="+animals+"&api_key=YXIrmneXIrga1DDVW61VFBCCkukPVuzC";
+    queryURL = "https://api.giphy.com/v1/gifs/search?q="+animals+"&api_key=YXIrmneXIrga1DDVW61VFBCCkukPVuzC";
 
     displayGifs(queryURL);
 }
